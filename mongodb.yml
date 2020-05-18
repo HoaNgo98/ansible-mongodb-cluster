@@ -1,6 +1,6 @@
 ---
 - hosts: mongodb_cluster
   roles:
-    - { role: galera_repos, tags: [ 'setup', 'packages' ] }
-    - { role: galera_packages, tags: [ 'setup', 'packages' ] }
-    - { role: galera_conf, tags: [ 'config' ] }
+    - { role: mongodb_repos, tags: [ 'setup', 'packages' ] }
+    - { role: mongodb_packages, tags: [ 'setup', 'packages' ] }
+    - { role: mongodb_conf, tags: [ 'config' ] }
