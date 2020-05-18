@@ -1,0 +1,11 @@
+---
+- name: Install MongoDB server packages
+  become: yes
+  become_user: root
+  apt: name={{ item }} state=present update_cache=yes
+  loop:
+    - mongodb-org-{{ mongodb_release }}
+    - mongodb-org-server-{{ mongodb_release }}
+    - mongodb-org-shell-{{ mongodb_release }}
+    - mongodb-org-mongos-{{ mongodb_release }}
+    - mongodb-org-tools-{{ mongodb_release }}

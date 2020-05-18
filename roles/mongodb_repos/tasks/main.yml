@@ -1,0 +1,20 @@
+---
+- name: Install software-properties-common
+  become: yes
+  become_user: root
+  apt: name={{ item }} state=present update_cache=yes
+  loop:
+    - software-properties-common
+
+- name: Add MongoDB keys
+  become: yes
+  become_user: root
+  apt_key: 
+    url: https://www.mongodb.org/static/pgp/server-4.0.asc
+    state: present
+
+- name: Add MongoDB repo
+  become: yes
+  become_user: root  
+  template: src=sources.list.d/mongodb-org-4.0.list.j2 dest=/etc/apt/sources.list.d/mongodb-org-4.0.list
+    owner=root group=root mode=0644

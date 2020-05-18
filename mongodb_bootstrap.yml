@@ -1,0 +1,5 @@
+---
+- hosts: mongodb_cluster
+  serial: 1
+  roles:
+    - mongodb_bootstrap

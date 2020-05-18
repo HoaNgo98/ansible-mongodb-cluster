@@ -1,0 +1,11 @@
+systemLog:
+  destination: file
+  logAppend: true
+  path: /var/log/mongodb/mongos.log
+
+net:
+  port: 27017
+  bindIp: xxx
+
+sharding:
+  configDB: ConfigReplSet/yyy:27019

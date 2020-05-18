@@ -1,0 +1,28 @@
+---
+- hosts: vdb-mongodb02
+  - name: Add MongoDB Config configuration
+    become: yes
+    become_user: root
+    template: src=mongodConfig.cnf.j2 dest=/etc/mongod.cnf
+      owner=mongodb group=mongodb mode=0644
+
+- hosts: vdb-mongodb01
+  - name: Add MongoDB Router configuration
+    become: yes
+    become_user: root
+    template: src=mongos.cnf.j2 dest=/etc/mongos.cnf
+      owner=mongodb group=mongodb mode=0644
+
+- hosts: vdb-mongodb01
+  - name: Add MongoDB Router Systemd
+    become: yes
+    become_user: root
+    template: src=mongos.service.j2 dest=/lib/systemd/system/mongos.service
+      owner=mongodb group=mongodb mode=0644
+
+- hosts: vdb-mongodb03
+  - name: Add MongoDB Shard configuration
+    become: yes
+    become_user: root
+    template: src=mongodShard.cnf.j2 dest=/etc/mongod.cnf
+      owner=mongodb group=mongodb mode=0644

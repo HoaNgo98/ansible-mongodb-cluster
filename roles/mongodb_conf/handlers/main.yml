@@ -1,0 +1,4 @@
+#---
+#- name: Restart MongoDB cluster
+#  systemd: name=mongodb state=restarted
+#  when: bootstrapped

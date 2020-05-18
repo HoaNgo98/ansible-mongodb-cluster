@@ -1,0 +1,22 @@
+---
+- name: Stop MongoDB Query Router
+  systemd: name=mongod state=stopped
+  when: inventory_hostname == groups['mongodb_cluster'][0]
+
+- name: Enable MongoDB Query Router
+  systemd: name=mongos state=enabled
+  async: 45
+  poll: 0
+  when: inventory_hostname == groups['mongodb_cluster'][0]
+
+- name: Start MongoDB Query Router
+  systemd: name=mongos state=started
+  async: 45
+  poll: 0
+  when: inventory_hostname == groups['mongodb_cluster'][0]
+
+- name: Restart the other MongoDB Cluster
+  systemd: name=mongod state=restarted
+  async: 45
+  poll: 0
+  when: inventory_hostname != groups['mongodb_cluster'][0]
