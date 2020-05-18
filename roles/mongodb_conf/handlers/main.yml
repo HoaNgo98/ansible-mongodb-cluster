@@ -1,4 +1,4 @@
-#---
-#- name: Restart MongoDB cluster
-#  systemd: name=mongodb state=restarted
-#  when: bootstrapped
+---
+- name: Restart MongoDB cluster
+  systemd: name=mongod state=restarted
+  when: bootstrapped and inventory_hostname == groups['mongodb_cluster'][1] 
