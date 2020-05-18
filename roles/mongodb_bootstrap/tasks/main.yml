@@ -5,9 +5,9 @@
   poll: 0
   when: inventory_hostname == groups['mongodb_cluster'][1]
   
-- name: Initiazlize MongoDB Config
-  command: mongo MYIP2:27019 --eval 'printjson(rs.initiate())'
-  when: inventory_hostname == groups['mongodb_cluster'][1]
+#- name: Initiazlize MongoDB Config
+#  command: mongo MYIP2:27019 --eval 'printjson(rs.initiate())'
+#  when: inventory_hostname == groups['mongodb_cluster'][1]
 
 - name: Restart MongoDB Shard
   systemd: name=mongod state=restarted
@@ -15,9 +15,9 @@
   poll: 0
   when: inventory_hostname == groups['mongodb_cluster'][2]
   
-- name: Initiazlize MongoDB Shard
-  command: mongo MYIP3:27018 --eval 'printjson(rs.initiate())'
-  when: inventory_hostname == groups['mongodb_cluster'][2]
+#- name: Initiazlize MongoDB Shard
+#  command: mongo MYIP3:27018 --eval 'printjson(rs.initiate())'
+#  when: inventory_hostname == groups['mongodb_cluster'][2]
 
 - name: Stop MongoDB Query Router
   systemd: name=mongod state=stopped
@@ -35,6 +35,6 @@
   poll: 0
   when: inventory_hostname == groups['mongodb_cluster'][0]
   
-- name: Initiazlize MongoDB Query Router
-  command: mongo MYIP1:27017 --eval "sh.addShard('ShardReplSet/MYIP3:27018')"
-  when: inventory_hostname == groups['mongodb_cluster'][0]
+#- name: Initiazlize MongoDB Query Router
+#  command: mongo MYIP1:27017 --eval "sh.addShard('ShardReplSet/MYIP3:27018')"
+#  when: inventory_hostname == groups['mongodb_cluster'][0]
