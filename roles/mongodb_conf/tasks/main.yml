@@ -2,14 +2,14 @@
 - name: Add MongoDB Config configuration
   become: yes
   become_user: root
-  template: src=mongodConfig.cnf.j2 dest=/etc/mongod.cnf
+  template: src=mongodConfig.conf.j2 dest=/etc/mongod.conf
     owner=mongodb group=mongodb mode=0644
   when: inventory_hostname == groups['mongodb_cluster'][1]
 
 - name: Add MongoDB Router configuration
   become: yes
   become_user: root
-  template: src=mongos.cnf.j2 dest=/etc/mongos.cnf
+  template: src=mongos.conf.j2 dest=/etc/mongos.conf
     owner=mongodb group=mongodb mode=0644
   when: inventory_hostname == groups['mongodb_cluster'][0]
 
@@ -23,6 +23,6 @@
 - name: Add MongoDB Shard configuration
   become: yes
   become_user: root
-  template: src=mongodShard.cnf.j2 dest=/etc/mongod.cnf
+  template: src=mongodShard.conf.j2 dest=/etc/mongod.conf
     owner=mongodb group=mongodb mode=0644
   when: inventory_hostname == groups['mongodb_cluster'][2]
