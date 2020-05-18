@@ -4,25 +4,25 @@
   become_user: root
   template: src=mongodConfig.cnf.j2 dest=/etc/mongod.cnf
     owner=mongodb group=mongodb mode=0644
-  when: inventory_hostname == groups['galera_cluster'][1]
+  when: inventory_hostname == groups['mongodb_cluster'][1]
 
 - name: Add MongoDB Router configuration
   become: yes
   become_user: root
   template: src=mongos.cnf.j2 dest=/etc/mongos.cnf
     owner=mongodb group=mongodb mode=0644
-  when: inventory_hostname == groups['galera_cluster'][0]
+  when: inventory_hostname == groups['mongodb_cluster'][0]
 
 - name: Add MongoDB Router Systemd
   become: yes
   become_user: root
   template: src=mongos.service.j2 dest=/lib/systemd/system/mongos.service
     owner=mongodb group=mongodb mode=0644
-  when: inventory_hostname == groups['galera_cluster'][0]
+  when: inventory_hostname == groups['mongodb_cluster'][0]
 
 - name: Add MongoDB Shard configuration
   become: yes
   become_user: root
   template: src=mongodShard.cnf.j2 dest=/etc/mongod.cnf
     owner=mongodb group=mongodb mode=0644
-  when: inventory_hostname == groups['galera_cluster'][2]
+  when: inventory_hostname == groups['mongodb_cluster'][2]
