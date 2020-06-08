@@ -10,3 +10,11 @@ ansible-playbook -i mongodb.hosts mongodb_bootstrap.yml
 
 # thứ tự ưu tiên boot VM
 Node Shard -> Node Config Server -> Node Query Router 
+# cách test cluster
+-> From mongos:
+use exampleDB
+sh.enableSharding("exampleDB")
+db.exampleCollection.ensureIndex( { _id : "hashed" } )
+sh.shardCollection( "exampleDB.exampleCollection", { "_id" : "hashed" } )
+for (var i = 1; i <= 500; i++) db.exampleCollection.insert( { x : i } )
+db.exampleCollection.getShardDistribution()
